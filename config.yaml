@@ -1,0 +1,29 @@
+langs:
+- clojure
+- coffeescript
+- javascript
+- python
+
+progs:
+- all-your-base
+- anagram
+- bank-account
+- binary-search
+- bob
+- etl
+- largest-series-product
+- leap
+- matching-brackets
+- minesweeper
+- pangram
+- raindrops
+- reverse-string
+- rna-transcription
+- roman-numerals
+- scrabble-score
+- secret-handshake
+- space-age
+- sum-of-multiples
+- two-fer
+- word-count
+- yacht

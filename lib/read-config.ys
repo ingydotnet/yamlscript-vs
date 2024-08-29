@@ -1,0 +1,47 @@
+!yamlscript/v0
+
+defn read-config(file):
+  config =: slurp(file).yaml/load()
+  langs =: config.langs
+
+  clone-exercism-repo:  'yamlscript'
+  clone-exercism-repos: langs
+
+  yconf =: slurp("exercism/yamlscript/config.json").json/load()
+
+  langs =:
+    map _ langs:
+      fn(lang):
+        path =: "exercism/$lang/exercises/practice/SLUG"
+        path =:
+          cond:
+            lang == 'clojure': "$path/.meta"
+            else: path
+        lconf =: slurp("exercism/$lang/config.json").json/load()
+        hash-map:
+          :slug lang
+          :name lconf.language
+          :path "$path/$(lconf.files.example.0)"
+
+  progs =:
+    remove nil?:
+      mapv _ yconf.exercises.practice:
+        fn(conf):
+          when config.progs.has?(conf.slug):
+            hash-map:
+              :slug conf.slug
+              :name conf.name
+
+  hash-map:
+    :langs langs
+    :progs progs
+
+defn clone-exercism-repos(langs):
+  each lang langs:
+    clone-exercism-repo: lang
+
+defn clone-exercism-repo(lang):
+  url =: 'https://github.com/exercism'
+  when-not fs-d("exercism/$lang"):
+    say: "git clone $url/$lang exercism/$lang"
+    sh: "git clone $url/$lang exercism/$lang"
