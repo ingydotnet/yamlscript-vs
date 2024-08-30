@@ -1,4 +1,5 @@
 YAMLScript vs ...
 =================
 
-Generate a markdown page comparing YAMLScript programs to other languages.
+Generate a markdown page comparing [YAMLScript](https://yamlscript.org)
+programs to other languages.
